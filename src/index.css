@@ -1,0 +1,74 @@
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: auto;
+  background-image: url(resources/background.jpg);
+  background-repeat: no-repeat;
+  background-size: 800px 600px;
+  width: 786px;
+  height: 566px;
+  box-shadow: inset 0 0 10px 15px rgba(0, 0, 0, 0.934);
+  overflow-y: hidden;
+  z-index: 1;
+}
+main {
+  position:fixed;
+  margin: -18px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  user-select: none; 
+  -webkit-user-select: none; 
+  -moz-user-select: none;
+  -ms-user-select: none; 
+  pointer-events: none;
+  z-index: 2;
+}
+.buttons {
+  display: flex;
+  text-align: center;
+  font-family: Eras;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  z-index: 3;
+  margin-left: -350px;
+}
+.app-settings {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 47px;
+}
+.btns {
+  font-family: Eras;
+  z-index: 3;
+}
+.slider{
+  display: flex;
+  text-align: center;
+  font-family: Eras;
+  align-items: center;
+  justify-content: center;
+  margin-top: -190px;
+  z-index: 3;
+  margin-left: -10px;
+}
+.form2 {
+  margin-top: -180px;
+}
+.btn {
+  width: 90px;
+  height: 35px;
+}
+.btn-l {
+  width: 90px;
+  height: 35px;
+}
+@font-face {
+  font-family: Eras; /*a name to be used later*/
+  src: url(resources/ErasBoldITC.ttf); /*URL to font*/
+}
+input[type="range"] {
+  width: 510px; 
+}
