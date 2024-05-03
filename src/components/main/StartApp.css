@@ -1,0 +1,13 @@
+main > img {
+    position:fixed;
+    margin: -18px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none; 
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    pointer-events: none;
+    z-index: 2;
+}

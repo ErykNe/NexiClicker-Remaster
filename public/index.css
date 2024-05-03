@@ -1,0 +1,16 @@
+body {
+    font-family: Eras;
+    margin: auto;
+    background-image: url(background.jpg);
+    background-repeat: no-repeat;
+    background-size: 800px 600px;
+    width: 786px;
+    height: 566px;
+    box-shadow: inset 0 0 10px 15px rgba(0, 0, 0, 0.934);
+    overflow: hidden;
+    z-index: 1;
+}
+@font-face {
+    font-family: Eras; /*a name to be used later*/
+    src: url(../src/resources/font/ErasBoldITC.ttf); /*URL to font*/
+  }

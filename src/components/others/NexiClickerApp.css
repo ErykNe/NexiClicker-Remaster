@@ -1,0 +1,15 @@
+.btns {
+    font-family: Eras;
+    z-index: 3;
+}
+.Settings {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 220px;
+}
+.btn {
+    width: 90px;
+    height: 35px;
+}
