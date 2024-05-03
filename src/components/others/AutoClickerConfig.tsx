@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import './AutoClickerConfig.css';
+import AutoClicker from './AutoClicker';
 
-export let AutoClickerActive = false;
 export let HOTKEY: any;
 export let KEY: any;
 export let CPS: number;
+export let AC: AutoClicker;
 
 export default function AutoClickerConfig(){
     const [autoClickerActive, setAutoClickerActive] = useState(false);
 
     const startAutoClicker = () => {
       setAutoClickerActive(true); //here ended
-      console.log("gowno");
+      console.log(HOTKEY, KEY, CPS);
+      AC = new AutoClicker(HOTKEY, KEY, CPS);
+      AC.execute();
     };
 
     const stopAutoClicker = () => {
       setAutoClickerActive(false);
-      console.log("gowno");
     };
 
     const setHotkey = () => {
