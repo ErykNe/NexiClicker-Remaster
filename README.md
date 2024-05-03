@@ -1,2 +1,2 @@
 # NexiClicker Remaster
-work in progress...
+work in progress
