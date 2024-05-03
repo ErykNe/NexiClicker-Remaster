@@ -10,7 +10,7 @@ export default function AutoClickerConfig(){
     const [autoClickerActive, setAutoClickerActive] = useState(false);
 
     const startAutoClicker = () => {
-      setAutoClickerActive(true);
+      setAutoClickerActive(true); //here ended
       console.log("gowno");
     };
 
