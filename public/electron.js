@@ -1,8 +1,16 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
-//to run, use npm run start-electron
-//if localhost glitches, type npm start and then npm run start-electron
+
+const ioHook = require('iohook'); //global key listener
+const robot = require('@jitsi/robotjs') //robot for the autoclicker
+
+ioHook.on('mousemove', (event) => {
+  console.log(event); // iohook test 
+});
+ioHook.start();
+
+
 function createWindow() {
     const startUrl = process.env.ELECTRON_START_URL || url.format({
         pathname: path.join(__dirname, '../index.html'),

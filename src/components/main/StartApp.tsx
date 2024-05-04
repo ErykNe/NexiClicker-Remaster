@@ -1,4 +1,4 @@
-import NexiClickerApp from '../others/NexiClickerApp.tsx';
+import NexiClickerApp from '../others/NexiClickerApp';
 import './StartApp.css';
 
 const StartApp = () => {

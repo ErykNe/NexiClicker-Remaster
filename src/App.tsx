@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import StartApp from './components/main/StartApp.tsx';
+import StartApp from './components/main/StartApp';
 import './App.css';
 
 function App() {

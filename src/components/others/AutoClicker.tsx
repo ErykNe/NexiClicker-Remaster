@@ -10,8 +10,11 @@ export default class AutoClicker {
         this.CPS = CPS;
     }
     
+
     public execute() {
-        var robot = require("robotjs");
-        //Config RobotJS and IoHook or other libraries required to Listen keys globally and executing them afterwards
+        AutoClickerExecutable(this.HOTKEY, this.KEY, this.CPS)
     }
+}
+function AutoClickerExecutable(HOTKEY: any, KEY: any, CPS: any){
+
 }
