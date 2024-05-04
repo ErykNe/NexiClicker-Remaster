@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@electron/rebuild": "^3.6.0",
     "@types/lodash": "^4.17.0",
     "electron": "^30.0.2",
     "electron-builder": "^24.13.3"

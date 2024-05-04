@@ -11,7 +11,7 @@ export default function AutoClickerConfig(){
     const [autoClickerActive, setAutoClickerActive] = useState(false);
 
     const startAutoClicker = () => {
-      setAutoClickerActive(true); //here ended
+      setAutoClickerActive(true);
       console.log(HOTKEY, KEY, CPS);
       AC = new AutoClicker(HOTKEY, KEY, CPS);
       AC.execute();

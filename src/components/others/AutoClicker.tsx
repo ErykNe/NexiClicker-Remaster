@@ -11,6 +11,7 @@ export default class AutoClicker {
     }
     
     public execute() {
+        var robot = require("robotjs");
         //Config RobotJS and IoHook or other libraries required to Listen keys globally and executing them afterwards
     }
 }
