@@ -7,10 +7,10 @@
 
 # testing
 /coverage
-
+public/bs
 # production
 /build
-
+node_modules
 # misc
 .DS_Store
 .env.local
