@@ -5,8 +5,8 @@ import './NexiClickerApp.css';
 
 export default function NexiClickerApp(){
     let clickers: React.JSX.Element[] = [];
-    _.times(2, () => {
-        clickers.push(<AutoClickerConfig></AutoClickerConfig>);
+    _.times(2, (index) => {
+        clickers.push(<AutoClickerConfig TAG={index}></AutoClickerConfig>);
     });
     let buttons: React.JSX.Element[] = 
     [
