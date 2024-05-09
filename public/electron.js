@@ -42,10 +42,18 @@ ipcMain.on('submit::autoclicker', (event, args) => {
     ioHook.start()
 });
 
+
 ipcMain.on('autoclicker::shutdown', (event, args) => {
-    const index = AutoClickers.findIndex(elem => elem.TAG_NUMBER == args.TAG_NUMBER)
-    if(AutoClickers[index]){
-        AutoClickers[index] = undefined
+    try{
+        const index = AutoClickers.findIndex(elem => elem.TAG_NUMBER == args.TAG_NUMBER);
+        if(AutoClickers[index]){
+            AutoClickers[index] = undefined
+        }
+        if(!AutoClickers[0] && !AutoClickers[1]){
+            ioHook.stop()
+        }
+    } catch {
+        ioHook.stop()
     }
 });
 
