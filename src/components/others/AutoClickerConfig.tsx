@@ -20,7 +20,7 @@ export default function AutoClickerConfig(TAG: any) {
     HOTKEY: undefined,
     KEY: undefined,
     CPS: 0,
-    TAG_NUMBER: TAG.TAG //xd
+    TAG_NUMBER: TAG.TAG 
   });
   const tagNumId = TAG.TAG.toString();
 
@@ -75,16 +75,13 @@ export default function AutoClickerConfig(TAG: any) {
       CPS: parseInt(event.target.value)
     }));
     let slider = document.getElementById("CPS" + tagNumId)
-    if(slider){
-        var value = parseInt(event.target.value)
-        slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + value + '%, #fff ' + value + '%, white 100%)'
-    }
+    stylizer.updateBackground(slider, parseInt(event.target.value))
   };
 
   const handleSubmit = (values: IValue) => {
-    values = formValues; // Destructure formValues
+    values = formValues; 
     console.log("Submitted values:", values);
-    ipcRenderer.send('submit::autoclicker', values); // Send formValues to main process
+    ipcRenderer.send('submit::autoclicker', values); 
     setAutoClickerActive(true);
   };
 

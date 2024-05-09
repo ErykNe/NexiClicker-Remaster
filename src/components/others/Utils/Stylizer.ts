@@ -53,4 +53,10 @@ export default class Stylizer{
         return text;
     }
 
+    public updateBackground(slider: any, value: number){
+        if(slider){
+            slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + value + '%, #fff ' + value + '%, white 100%)'
+        }
+    }
+
 }
