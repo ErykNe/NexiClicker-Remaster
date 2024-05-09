@@ -2,14 +2,40 @@
     font-family: Eras;
     z-index: 3;
 }
-.Settings {
+.Settings, .App-settings {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: 220px;
+    margin-top: 210px;
+}
+.App-settings {
+    margin-top: 15px;
 }
 .btn {
     width: 90px;
     height: 35px;
+}
+.btn-transparent, .btn-transparent-activated {
+    letter-spacing: 0.7px;
+    font-family: Eras;
+    z-index: 3;
+    width: 150px;
+    height: 22px;
+    font-size: 9px;
+    vertical-align:top;
+}
+.btn-transparent {
+    background-color: rgba(0, 0, 0, 0.619);
+    border: 0px solid rgba(0, 0, 0, 0.619);
+}
+.btn-transparent-activated {
+    background-color: #6309ff9e;
+    border: 0px solid #6309ff9e;
+}
+.btn-transparent:hover {
+    background-color: rgba(0, 0, 0, 0.755);
+}
+.btn-transparent:active {
+    background-color: rgba(0, 0, 0, 0.803);
 }

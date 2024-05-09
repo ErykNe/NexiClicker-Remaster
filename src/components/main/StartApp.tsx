@@ -7,7 +7,7 @@ const StartApp = () => {
     <main>
         <img src={require("../../resources/images/header.png")}></img>
     </main>
-    <div>
+    <div className='app'>
       <NexiClickerApp></NexiClickerApp>
     </div>
     </>

@@ -80,17 +80,6 @@ function createWindow() {
     win.setMenuBarVisibility(true) //hide if unecceseary
     win.webContents.openDevTools()
     win.setResizable(true)
-    
-  
-    win.webContents.on('context-menu', (event, params) => {
-    const menu = Menu.buildFromTemplate([
-      {
-        label: 'Reload',
-        click: () => win.reload(),
-      }
-    ]);
-    menu.popup();
-    });
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') {
             app.quit()

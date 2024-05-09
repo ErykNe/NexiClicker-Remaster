@@ -24,7 +24,7 @@
     font-family: Eras;
     align-items: center;
     justify-content: center;
-    margin-top: -190px;
+    margin-top: -205px;
     z-index: 3;
     margin-left: -10px;
 }
@@ -73,7 +73,7 @@ input[type="range"]:focus::-moz-range-thumb{
     height: 35px;
 }
 .ClickerConfig {
-    margin-bottom: -180px;
+    margin-bottom: -200px;
 }
 .startbutton {
     margin-left: 260px;
