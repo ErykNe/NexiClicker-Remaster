@@ -1,11 +1,11 @@
 export default class Stylizer{
-    private event: KeyboardEvent | MouseEvent;
+    private event: KeyboardEvent | MouseEvent | React.ChangeEvent<HTMLInputElement>;
 
-    constructor(event: KeyboardEvent | MouseEvent){
+    constructor(event: KeyboardEvent | MouseEvent | React.ChangeEvent<HTMLInputElement>){
         this.event = event;
     }
 
-    public getText(){
+    public getButtonText(){
         let text = "";
         if(this.event instanceof KeyboardEvent){
             text = this.event.key.toString().toUpperCase()
@@ -30,6 +30,25 @@ export default class Stylizer{
                   text = "OTHER";  
                   break;
             }
+        } else {
+            return "";
+        }
+        return text;
+    }
+    public getSliderText(){
+        let text = "";
+        if(!(this.event instanceof KeyboardEvent) && !(this.event instanceof MouseEvent)){
+            if(this.event.target.value.length == 1){
+                text = "⠀⠀" + this.event.target.value + " CPS" + "⠀";
+              }
+              if(this.event.target.value.length == 2){
+                text = "⠀" + this.event.target.value + " CPS" + "⠀";
+              }
+              if(this.event.target.value.length == 3){
+                text = this.event.target.value + " CPS" + "⠀";
+              }
+        } else {
+            return "";
         }
         return text;
     }

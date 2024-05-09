@@ -38,7 +38,7 @@ export default function AutoClickerConfig(TAG: any) {
     let stylizer = new Stylizer(event);
     let button = document.getElementById("HOTKEY" + tagNumId);
     if(button){
-      button.innerHTML = stylizer.getText();
+      button.innerHTML = stylizer.getButtonText();
     }
     window.removeEventListener('keydown', handleHotkeyDown);
     window.removeEventListener('mousedown', handleHotkeyDown);
@@ -58,7 +58,7 @@ export default function AutoClickerConfig(TAG: any) {
     let stylizer = new Stylizer(event);
     let button = document.getElementById("KEY" + tagNumId);
     if(button){
-      button.innerHTML = stylizer.getText();
+      button.innerHTML = stylizer.getButtonText();
     }
     window.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('mousedown', handleKeyDown);
@@ -66,13 +66,19 @@ export default function AutoClickerConfig(TAG: any) {
 
   const setCPSAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     let button = document.getElementById("CPSLabel" + tagNumId);
+    let stylizer = new Stylizer(event);
     if(button){
-      button.innerHTML = event.target.value;
+      button.innerHTML = stylizer.getSliderText();
     }
     setFormValues(prevValues => ({
       ...prevValues,
       CPS: parseInt(event.target.value)
     }));
+    let slider = document.getElementById("CPS" + tagNumId)
+    if(slider){
+        var value = parseInt(event.target.value)
+        slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + value + '%, #fff ' + value + '%, white 100%)'
+    }
   };
 
   const handleSubmit = (values: IValue) => {
@@ -104,7 +110,7 @@ export default function AutoClickerConfig(TAG: any) {
             )}
           </div>
           <div className="slider">
-            <p className="CPSCounter" id={"CPSLabel" + tagNumId}>CPS</p>
+            <p className="CPSLabel" id={"CPSLabel" + tagNumId}>⠀⠀0 CPS⠀</p>
             <input type="range" name="CPS" defaultValue="0" min="0" max="100" step="1" id={"CPS" + tagNumId} onChange={setCPSAmount} />
           </div>
         </Form>

@@ -8,8 +8,15 @@
     margin-left: -10px;
     z-index: 3;
 }
-.CPSCounter {
+.CPSLabel {
     color: white;
+    margin-top: 16px;
+    user-select: none; 
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    pointer-events: none;
+    text-shadow: rgba(0, 0, 0, 0.909) 0 0px 5px;
 }
 .slider{
     display: flex;
@@ -21,8 +28,45 @@
     z-index: 3;
     margin-left: -10px;
 }
+.btn-group, .startbutton {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.741);
+}
 input[type="range"] {
-    width: 510px; 
+    -webkit-appearance: none;
+    appearance: none;
+    background: white;
+    cursor: pointer;
+    width: 452px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.741);
+  }
+input[type="range"]:focus {
+    outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    margin-top: 0px; 
+    background-color: #007BFF;
+    border-radius: 0rem;
+    height: 0.9rem;
+    width: 0.5rem;
+}
+input[type="range"]::-moz-range-track {
+    background: white;
+    border-radius: 0rem;
+    height: 2rem;
+}
+input[type="range"]::-moz-range-thumb {
+    background-color: #007BFF;
+    border: none; 
+    border-radius: 0rem;
+    height: 0.9rem;
+    width: 0.5rem;
+  }
+  
+input[type="range"]:focus::-moz-range-thumb{
+    outline: 3px solid #0063cc;
+    outline-offset: 0.125rem;
 }
 .btn {
     width: 90px;
