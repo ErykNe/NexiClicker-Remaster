@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
+import Interpreter from './Utils/Interpreter';
+import Stylizer from './Utils/Stylizer';
 import './AutoClickerConfig.css';
 
 const ipcRenderer = (window as any).ipcRenderer
@@ -20,6 +22,7 @@ export default function AutoClickerConfig(TAG: any) {
     CPS: 0,
     TAG_NUMBER: TAG.TAG //xd
   });
+  const tagNumId = TAG.TAG.toString();
 
   const setHotkey = () => {
     window.addEventListener('keydown', handleHotkeyDown);
@@ -27,11 +30,16 @@ export default function AutoClickerConfig(TAG: any) {
   };
 
   const handleHotkeyDown = (event: KeyboardEvent | MouseEvent) => {
-    console.log(event)
+    let interpreter = new Interpreter(event);
     setFormValues(prevValues => ({
       ...prevValues,
-      HOTKEY: event instanceof KeyboardEvent ? event.keyCode : event.button
+      HOTKEY: interpreter.getInterpretedKey()
     }));
+    let stylizer = new Stylizer(event);
+    let button = document.getElementById("HOTKEY" + tagNumId);
+    if(button){
+      button.innerHTML = stylizer.getText();
+    }
     window.removeEventListener('keydown', handleHotkeyDown);
     window.removeEventListener('mousedown', handleHotkeyDown);
   };
@@ -42,15 +50,25 @@ export default function AutoClickerConfig(TAG: any) {
   };
 
   const handleKeyDown = (event: KeyboardEvent | MouseEvent) => {
+    let interpreter = new Interpreter(event)
     setFormValues(prevValues => ({
       ...prevValues,
-      KEY: event instanceof KeyboardEvent ? event.keyCode : event.button
+      KEY: interpreter.getInterpretedKey()
     }));
+    let stylizer = new Stylizer(event);
+    let button = document.getElementById("KEY" + tagNumId);
+    if(button){
+      button.innerHTML = stylizer.getText();
+    }
     window.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('mousedown', handleKeyDown);
   };
 
   const setCPSAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let button = document.getElementById("CPSLabel" + tagNumId);
+    if(button){
+      button.innerHTML = event.target.value;
+    }
     setFormValues(prevValues => ({
       ...prevValues,
       CPS: parseInt(event.target.value)
@@ -75,8 +93,8 @@ export default function AutoClickerConfig(TAG: any) {
         <Form className='ClickerConfig'>
           <div className="buttons">
             <div className="btn-group">
-              <button type="button" className="btn btn-primary" name="HOTKEY" id="HOTKEY" onClick={setHotkey}>HOTKEY</button>
-              <button type="button" className="btn btn-primary" name="KEY" id="KEY" onClick={setKey}>BIND</button>
+              <button type="button" className="btn btn-primary" name="HOTKEY" id={"HOTKEY" + tagNumId} onClick={setHotkey}>HOTKEY</button>
+              <button type="button" className="btn btn-primary" name="KEY" id={"KEY" + tagNumId} onClick={setKey}>BIND</button>
             </div>
             {!autoClickerActive && (
               <button type="submit" className='btn btn-primary startbutton' name="StartButton" id="StartAutoClickerButton">START</button>
@@ -86,7 +104,8 @@ export default function AutoClickerConfig(TAG: any) {
             )}
           </div>
           <div className="slider">
-            <input type="range" name="CPS" defaultValue="0" min="0" max="100" step="1" id="CPS" onChange={setCPSAmount} />
+            <p className="CPSCounter" id={"CPSLabel" + tagNumId}>CPS</p>
+            <input type="range" name="CPS" defaultValue="0" min="0" max="100" step="1" id={"CPS" + tagNumId} onChange={setCPSAmount} />
           </div>
         </Form>
       </Formik>

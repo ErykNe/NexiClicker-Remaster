@@ -8,6 +8,9 @@
     margin-left: -10px;
     z-index: 3;
 }
+.CPSCounter {
+    color: white;
+}
 .slider{
     display: flex;
     text-align: center;

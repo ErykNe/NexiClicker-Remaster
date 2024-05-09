@@ -9,27 +9,32 @@ const AutoClickers = []
 
 
 ioHook.on('keydown', (event) => {
+    console.log(event)
     if(AutoClickers[0]){
-        if(AutoClickers[0].HOTKEY == event.rawcode){
+        if(AutoClickers[0].KEY == event.rawcode){
             console.log("Bind Clicked")
         }
     }
     if(AutoClickers[1]){
-        if(AutoClickers[1].HOTKEY == event.rawcode){
+        if(AutoClickers[1].KEY == event.rawcode){
             console.log("Bind Clicked")
         }
     }
 })
 
-/*ioHook.on('mousedown', (event) => {
+ioHook.on('mousedown', (event) => {
+    console.log(event)
     if(AutoClickers[0]){
-        console.log("Autoclicker1 MOUSE assigned!")
-        console.log(event)
+        if(AutoClickers[0].KEY == event.button){
+            console.log("Bind Clicked")
+        }
     }
     if(AutoClickers[1]){
-        console.log("Autoclicker2 MOUSE assigned!")
+        if(AutoClickers[1].KEY == event.button){
+            console.log("Bind Clicked")
+        }
     }
-})*/
+})
 
 ipcMain.on('submit::autoclicker', (event, args) => {
     AutoClickers[args.TAG_NUMBER] = args
