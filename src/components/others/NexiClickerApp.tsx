@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import AutoClickerConfig from './AutoClickerConfig';
 import './NexiClickerApp.css';
+import Stylizer from './Utils/Stylizer';
 
 export default function NexiClickerApp(){
     let clickers: React.JSX.Element[] = [];
@@ -17,8 +18,8 @@ export default function NexiClickerApp(){
     ]
     let AppSettingButtons: React.JSX.Element[] = 
     [
-        <button className="btn btn-primary btn-transparent" name="FSOverlay" onClick={e => enableFullScreenOverlay()}>FS OVERLAY</button>,
-        <button className="btn btn-primary btn-transparent" name="Notify" onClick={e => enableNotifications()}>NOTIFICATIONS</button>
+        <button className="btn btn-primary btn-transparent" name="FSOverlay" onClick={e => enableFullScreenOverlay(e)}>FS OVERLAY</button>,
+        <button className="btn btn-primary btn-transparent" name="Notify" onClick={e => enableNotifications(e)}>NOTIFICATIONS</button>
     ]
     return (
     <div className='App'>
@@ -47,25 +48,13 @@ export function loadSettings(){
 export function resetSettings(){
 
 }
-export function enableFullScreenOverlay() {
-    const btn = document.querySelector('[name="FSOverlay"]');
-    if(btn && !(btn.classList.contains("btn-transparent-activated"))){
-        btn.classList.remove("btn-transparent");
-        btn.classList.add("btn-transparent-activated");
-    } else if (btn){
-        btn.classList.add("btn-transparent");
-        btn.classList.remove("btn-transparent-activated");
-    }
+export function enableFullScreenOverlay(event: any) {
+    let stylizer = new Stylizer(event)
+    stylizer.updateAppSettingsButton("FSOverlay")
 }   
-export function enableNotifications(){
-    const btn = document.querySelector('[name="Notify"]');
-    if(btn && !(btn.classList.contains("btn-transparent-activated"))){
-        btn.classList.remove("btn-transparent");
-        btn.classList.add("btn-transparent-activated");
-    } else if (btn){
-        btn.classList.add("btn-transparent");
-        btn.classList.remove("btn-transparent-activated");
-    }
+export function enableNotifications(event: any){
+    let stylizer = new Stylizer(event)
+    stylizer.updateAppSettingsButton("Notify")
 }
 export function exit(){
 

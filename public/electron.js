@@ -1,37 +1,67 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 const { ipcMain } = require('electron/main');
 
-const ioHook = require('iohook'); //global key listener
-const robot = require('@jitsi/robotjs') //robot for the autoclicker
+const ioHook = require('iohook') 
+const robot = require('@jitsi/robotjs') 
 const AutoClickers = []
+var AutoClickerStarted = [false, false];
 
+function setupRobot(clicker) {
+    interval = 1000/clicker.CPS;
+    if(clicker.CPS == 100){
+        interval = 0;
+    }
+    robotInterval = setInterval(() => {
+        if (!AutoClickerStarted) {
+            clearInterval(robotInterval); 
+            return;
+        }
+        if(clicker.HOTKEY == "left" || clicker.HOTKEY == "right" || clicker.HOTKEY == "middle"){
+            robot.mouseClick(clicker.HOTKEY);
+        } else {
+            robot.keyTap(clicker.HOTKEY);
+        }
+    }, interval); 
+}
 
-ioHook.on('keydown', (event) => {
-    console.log(event)
+ioHook.on('keyup', (event) => {
     if(AutoClickers[0]){
-        if(AutoClickers[0].KEY == event.rawcode){
-            console.log("Bind Clicked")
+        if(AutoClickers[0].KEY == event.rawcode){ 
+            AutoClickerStarted[0] = AutoClickerStarted[0] ? false : true;
+            if(AutoClickerStarted[0]){
+                setupRobot(AutoClickers[0])
+            }
         }
     }
     if(AutoClickers[1]){
         if(AutoClickers[1].KEY == event.rawcode){
-            console.log("Bind Clicked")
+            AutoClickerStarted[1] = AutoClickerStarted[1] ? false : true;
+            if(AutoClickerStarted[1]){
+                setupRobot(AutoClickers[1])
+            }
         }
     }
 })
 
-ioHook.on('mousedown', (event) => {
+
+ioHook.on('mouseup', (event) => {
     console.log(event)
     if(AutoClickers[0]){
         if(AutoClickers[0].KEY == event.button){
-            console.log("Bind Clicked")
+            AutoClickerStarted[0] = AutoClickerStarted[0] ? false : true;
+            if(AutoClickerStarted[0]){
+                setupRobot(AutoClickers[0])
+            }
         }
     }
     if(AutoClickers[1]){
         if(AutoClickers[1].KEY == event.button){
-            console.log("Bind Clicked")
+            AutoClickerStarted[1] = AutoClickerStarted[1] ? false : true;
+            if(AutoClickerStarted[1]){
+                setupRobot(AutoClickers[1])
+            }
         }
     }
 })
@@ -97,5 +127,9 @@ app.on('activate', () => {
         createWindow()
     }
 });
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 console.log(path.join(__dirname, 'preload.js'))

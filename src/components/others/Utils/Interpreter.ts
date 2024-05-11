@@ -53,4 +53,26 @@ export default class Interpreter{
               return InterpretedKey;
         }
     }
+    public getInterpretedHotkey(){
+        if(this.UninterpretedEvent instanceof KeyboardEvent){
+            return this.UninterpretedEvent.key.toLowerCase();
+        } else if(this.UninterpretedEvent instanceof MouseEvent){
+            let InterpretedKey = "";
+            switch(this.UninterpretedEvent.button){
+                case 0:
+                  InterpretedKey = "left";
+                  break;
+                case 1:
+                  InterpretedKey = "middle";
+                  break;
+                case 2:
+                  InterpretedKey = "right";
+                  break;
+                default:
+                  InterpretedKey = "err";
+                  break;
+              }
+              return InterpretedKey;
+        }
+    }
 }

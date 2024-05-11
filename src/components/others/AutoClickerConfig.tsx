@@ -33,7 +33,7 @@ export default function AutoClickerConfig(TAG: any) {
     let interpreter = new Interpreter(event);
     setFormValues(prevValues => ({
       ...prevValues,
-      HOTKEY: interpreter.getInterpretedKey()
+      HOTKEY: interpreter.getInterpretedHotkey()
     }));
     let stylizer = new Stylizer(event);
     let button = document.getElementById("HOTKEY" + tagNumId);
@@ -75,7 +75,7 @@ export default function AutoClickerConfig(TAG: any) {
       CPS: parseInt(event.target.value)
     }));
     let slider = document.getElementById("CPS" + tagNumId)
-    stylizer.updateBackground(slider, parseInt(event.target.value))
+    stylizer.updateSliderBackground(slider, parseInt(event.target.value))
   };
 
   const handleSubmit = (values: IValue) => {

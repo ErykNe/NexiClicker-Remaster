@@ -53,10 +53,20 @@ export default class Stylizer{
         return text;
     }
 
-    public updateBackground(slider: any, value: number){
+    public updateSliderBackground(slider: any, value: number){
         if(slider){
             slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + value + '%, #fff ' + value + '%, white 100%)'
         }
+    }
+    public updateAppSettingsButton(buttonName: string){
+      const btn = document.querySelector('[name="' + buttonName + '"]');
+      if(btn && !(btn.classList.contains("btn-transparent-activated"))){
+        btn.classList.remove("btn-transparent");
+        btn.classList.add("btn-transparent-activated");
+      } else if (btn){
+        btn.classList.add("btn-transparent");
+        btn.classList.remove("btn-transparent-activated");
+      }
     }
 
 }
