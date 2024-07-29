@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Eras; 
+    src: url(../../src/resources/font/ErasBoldITC.ttf);
+}
+h2, p {
+    font-family: Eras;
+}
+h2{
+    color: rgb(13, 0, 255);
+}
+p {
+    color: white;
+}
+a {
+    color: white;
+}
+body {
+    margin: 0;
+    background: rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+.active {
+    color: green;
+}
+.inactive {
+    color: red;
+}
+.container {
+    margin-left: 14px;
+    margin-top: -10px;
+}
+
+#en1, #en2, #ac1, #ac2, #acd1, #acd2 {
+    margin-top: -17px;
+    padding-top: 0;
+}
+#en2 {
+    padding-bottom: 30px;
+}

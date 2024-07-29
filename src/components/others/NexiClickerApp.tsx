@@ -4,6 +4,8 @@ import AutoClickerConfig from './AutoClickerConfig';
 import './NexiClickerApp.css';
 import Stylizer from './Utils/Stylizer';
 
+const ipcRenderer = (window as any).ipcRenderer;
+
 export default function NexiClickerApp(){
     let clickers: React.JSX.Element[] = [];
     _.times(2, (index) => {
@@ -18,8 +20,7 @@ export default function NexiClickerApp(){
     ]
     let AppSettingButtons: React.JSX.Element[] = 
     [
-        <button className="btn btn-primary btn-transparent" name="FSOverlay" onClick={e => enableFullScreenOverlay(e)}>FS OVERLAY</button>,
-        <button className="btn btn-primary btn-transparent" name="Notify" onClick={e => enableNotifications(e)}>NOTIFICATIONS</button>
+        <button className="btn btn-primary btn-transparent" name="FSOverlay" onClick={e => enableFullScreenOverlay(e)}>FS OVERLAY</button>
     ]
     return (
     <div className='App'>
@@ -50,12 +51,11 @@ export function resetSettings(){
 }
 export function enableFullScreenOverlay(event: any) {
     let stylizer = new Stylizer(event)
-    stylizer.updateAppSettingsButton("FSOverlay")
+    stylizer.updateAppSettingsButton("FSOverlay");
+    let btn = document.querySelector('[name="FSOverlay"]');
+    let bool = btn && btn.classList.contains("btn-transparent-activated") ? true : false;
+    ipcRenderer.send('settings::fullscreen', bool);
 }   
-export function enableNotifications(event: any){
-    let stylizer = new Stylizer(event)
-    stylizer.updateAppSettingsButton("Notify")
-}
 export function exit(){
 
 }

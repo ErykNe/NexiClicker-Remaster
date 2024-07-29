@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import Interpreter from './Utils/Interpreter';
 import Stylizer from './Utils/Stylizer';
@@ -23,6 +23,19 @@ export default function AutoClickerConfig(TAG: any) {
     TAG_NUMBER: TAG.TAG 
   });
   const tagNumId = TAG.TAG.toString();
+  useEffect(() => {
+    // Send the updated formValues to the main process
+    var temp = { ...formValues }
+    let button = document.getElementById("HOTKEY" + tagNumId);
+    if(button?.innerHTML != "HOTKEY"){
+      temp.HOTKEY = button?.innerHTML
+    }
+    let button2 = document.getElementById("KEY" + tagNumId);
+    if(button2?.innerHTML != "BIND"){
+      temp.KEY = button2?.innerHTML
+    }
+    ipcRenderer.send('update::autoclicker_data', temp);
+  }, [formValues]);
 
   const setHotkey = () => {
     window.addEventListener('keydown', handleHotkeyDown);
