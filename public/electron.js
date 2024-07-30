@@ -7,6 +7,7 @@ const { ipcRenderer } = require("electron/main");
 const ioHook = require('iohook') 
 const robot = require('@jitsi/robotjs') 
 const { isWindowFullscreen } = require('./utils/fs');
+const fs = require('fs')
 var win = null;
 var overlaywin = null;
 
@@ -156,6 +157,38 @@ ipcMain.on('settings::fullscreen', (event, args) => {
         }, 420);
     }
 });
+
+ipcMain.on('autoclicker::save_settings', () => {
+    console.log("Recieved:" + AutoClickersData[0].HOTKEY + " " + AutoClickersData[0].KEY + " " +  AutoClickersData[0].CPS + " " + AutoClickersData[0].TAG_NUMBER 
+        + " " + AutoClickersData[1].HOTKEY + " " + AutoClickersData[1].KEY + " " + + AutoClickersData[1].CPS + " " + AutoClickersData[1].TAG_NUMBER 
+    );
+
+        const AutoClickerData = JSON.stringify(AutoClickersData);
+        fs.writeFileSync(path.join(__dirname, '/settings/settings.json'), AutoClickerData, (error) => {
+            if(error){
+                console.log(error);
+                throw error;
+            }
+        })
+
+})
+
+ipcMain.on('autoclicker::load_settings', (event) => {
+    console.log("fafdsaasf");
+    fs.readFile(path.join(__dirname, '/settings/settings.json'), (error, data) => {
+        if (error) {
+          console.error(error);
+      
+          throw err;
+        }
+      
+        const userSettings = JSON.parse(data);
+
+        console.log(userSettings);
+
+        win.webContents.send('autoclicker::send_settings', userSettings);
+      });
+})
 
 function createOverlay(monitorInfo) {
     if(overlaywin == null){

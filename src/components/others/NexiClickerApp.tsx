@@ -11,6 +11,13 @@ export default function NexiClickerApp(){
     _.times(2, (index) => {
         clickers.push(<AutoClickerConfig TAG={index}></AutoClickerConfig>);
     });
+    function saveSettings(){
+        ipcRenderer.send('autoclicker::save_settings')
+    }
+    function loadSettings(){
+        ipcRenderer.send('autoclicker::load_settings')
+    }
+
     let ClickerSettingButtons: React.JSX.Element[] = 
     [
         <button className="btn btn-primary" name="SaveSettings" onClick={e => saveSettings()}>SAVE</button>,
@@ -39,12 +46,6 @@ export default function NexiClickerApp(){
         </div>
     </div>
     );
-}
-export function saveSettings(){
-    
-}
-export function loadSettings(){
-
 }
 export function resetSettings(){
 

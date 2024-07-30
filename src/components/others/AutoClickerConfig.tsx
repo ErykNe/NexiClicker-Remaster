@@ -7,11 +7,20 @@ import './AutoClickerConfig.css';
 const ipcRenderer = (window as any).ipcRenderer
 
 
+
 interface IValue {
   HOTKEY: any;
   KEY: any;
   CPS: number;
   TAG_NUMBER: any;
+}
+interface JSValue {
+  hotkey: any;
+  hotkey_id: any;
+  key: any;
+  key_id: any;
+  cps_value: number;
+  tag: any;
 }
 
 export default function AutoClickerConfig(TAG: any) {
@@ -36,6 +45,37 @@ export default function AutoClickerConfig(TAG: any) {
     }
     ipcRenderer.send('update::autoclicker_data', temp);
   }, [formValues]);
+
+  useEffect(()=>{
+    ipcRenderer.on('autoclicker::send_settings', (event:any, args:any) => {
+      console.log("recieved: " + args + " " + args[TAG.TAG].HOTKEY);
+      /*setFormValues(prevValues => ({
+        ...prevValues,
+        HOTKEY: args[TAG.TAG].HOTKEY,
+        KEY: args[TAG.TAG].KEY,
+        CPS: args[TAG.TAG].CPS,
+      }));*/
+      let HotkeyButton = document.getElementById("HOTKEY" + tagNumId);
+      if(HotkeyButton){
+        HotkeyButton.innerHTML = args[TAG.TAG].HOTKEY;
+      }
+      let KeyButton = document.getElementById("KEY" + tagNumId);
+      if(KeyButton){
+        KeyButton.innerHTML = args[TAG.TAG].KEY;
+      }
+      const slider = document.getElementById("CPS" + tagNumId) as HTMLInputElement;
+    if (slider) {
+        slider.value = args[TAG.TAG].CPS.toString();
+        slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + args[TAG.TAG].CPS + '%, #fff ' + args[TAG.TAG].CPS + '%, white 100%)'
+
+        // Optionally, update the display label or other elements
+        const label = document.getElementById("CPSLabel" + tagNumId);
+        if (label) {
+            label.innerHTML = `${args[TAG.TAG].CPS} CPS`;
+        }
+    }
+    })
+  }, [])
 
   const setHotkey = () => {
     window.addEventListener('keydown', handleHotkeyDown);
