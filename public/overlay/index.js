@@ -1,11 +1,9 @@
 const { ipcRenderer } = require('electron');
 
-// Helper function to get the value or a default value
 function getValueOrDefault(value, defaultValue = "n/d") {
     return value !== undefined ? value : defaultValue;
 }
 
-// Listen for the data sent from the main process
 ipcRenderer.on('overlay::data', (event, data) => {
     const processedData = data.map(item => ({
         HOTKEY: getValueOrDefault(item.HOTKEY),

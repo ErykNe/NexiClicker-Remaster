@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import _ from 'lodash';
 import AutoClickerConfig from './AutoClickerConfig';
 import './NexiClickerApp.css';
@@ -17,6 +17,18 @@ export default function NexiClickerApp(){
     function loadSettings(){
         ipcRenderer.send('autoclicker::load_settings')
     }
+    function resetSettings(){
+        ipcRenderer.send('autoclicker::reset_settings')
+    }
+    function exit(){
+        ipcRenderer.send('autoclicker::exit')
+    }
+
+      useEffect(()=>{
+        ipcRenderer.on('autoclicker::require_load_settings', (event:any, args:any) => {
+            loadSettings()
+        })
+      }, [])
 
     let ClickerSettingButtons: React.JSX.Element[] = 
     [
@@ -47,9 +59,6 @@ export default function NexiClickerApp(){
     </div>
     );
 }
-export function resetSettings(){
-
-}
 export function enableFullScreenOverlay(event: any) {
     let stylizer = new Stylizer(event)
     stylizer.updateAppSettingsButton("FSOverlay");
@@ -57,6 +66,3 @@ export function enableFullScreenOverlay(event: any) {
     let bool = btn && btn.classList.contains("btn-transparent-activated") ? true : false;
     ipcRenderer.send('settings::fullscreen', bool);
 }   
-export function exit(){
-
-}

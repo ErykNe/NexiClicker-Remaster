@@ -55,7 +55,7 @@ export default class Stylizer{
 
     public updateSliderBackground(slider: any, value: number){
         if(slider){
-            slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + value + '%, #fff ' + value + '%, white 100%)'
+            slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + (value / 85) * 100 + '%, #fff ' + (value / 85) * 100 + '%, white 100%)'
         }
     }
     public updateAppSettingsButton(buttonName: string){

@@ -11,18 +11,22 @@ const fs = require('fs')
 var win = null;
 var overlaywin = null;
 
-const AutoClickers = []
-const AutoClickersData = []
-var AutoClickerStarted = [false, false];
+var AutoClickers = []
+var AutoClickersData = []
+var AutoClickerStarted = [];
 var robotInterval = [null, null];
 var FullScreenEnabled = false;
 var FSInterval = null;
-var NotificationsEnabled = false;
-
 function setupRobot(clicker, intervalIndex) {
     var interval = 1000/clicker.CPS;
-    if(clicker.CPS == 100){
+    if(clicker.CPS > 80){
         interval = 0;
+    } else if (clicker.CPS == 0){
+        return;
+    } else if (clicker.HOTKEY == undefined){
+        return;
+    } else if (clicker.KEY == undefined) {
+        return;
     }
     robotInterval[intervalIndex] = setInterval(() => {
         if(clicker.HOTKEY == "left" || clicker.HOTKEY == "right" || clicker.HOTKEY == "middle"){
@@ -42,9 +46,6 @@ ioHook.on('keyup', (event) => {
             } else {
                 clearInterval(robotInterval[0]); 
             }
-            if(overlaywin != null){
-                overlaywin.webContents.send('overlay::autoclicker_enabled_change', AutoClickerStarted);
-            }
         }
     }
     if(AutoClickers[1]){
@@ -55,16 +56,15 @@ ioHook.on('keyup', (event) => {
             } else {
                 clearInterval(robotInterval[1]); 
             }
-            if(overlaywin != null){
-                overlaywin.webContents.send('overlay::autoclicker_enabled_change', AutoClickerStarted);
-            }
         }
+    }
+    if(overlaywin != null){
+        overlaywin.webContents.send('overlay::autoclicker_enabled_change', AutoClickerStarted);
     }
 })
 
 
 ioHook.on('mouseup', (event) => {
-    console.log(event)
     if(AutoClickers[0]){
         if(AutoClickers[0].KEY == event.button){
             AutoClickerStarted[0] = AutoClickerStarted[0] ? false : true;
@@ -81,11 +81,13 @@ ioHook.on('mouseup', (event) => {
             }
         }
     }
+    if(overlaywin != null){
+        overlaywin.webContents.send('overlay::autoclicker_enabled_change', AutoClickerStarted);
+    }
 })
 
 ipcMain.on('submit::autoclicker', (event, args) => {
     AutoClickers[args.TAG_NUMBER] = args
-    console.log(AutoClickers)
     ioHook.start()
     if(overlaywin != null){
         overlaywin.webContents.send('overlay::data_enabled_change', [args.TAG_NUMBER, true]);
@@ -104,10 +106,9 @@ ipcMain.on('submit::autoclicker_data', (event, args) => {
 })
 
 ipcMain.on('autoclicker::shutdown', (event, args) => {
-    try{
-        const index = AutoClickers.findIndex(elem => elem.TAG_NUMBER == args.TAG_NUMBER);
-        if(AutoClickers[index]){
-            AutoClickers[index] = undefined
+   
+        if(AutoClickers[args.TAG_NUMBER]){
+            AutoClickers[args.TAG_NUMBER] = undefined
         }
         if(!AutoClickers[0] && !AutoClickers[1]){
             ioHook.stop()
@@ -115,12 +116,8 @@ ipcMain.on('autoclicker::shutdown', (event, args) => {
                 overlaywin.webContents.send('overlay::data_enabled_change', [args.TAG_NUMBER, false]);
             }
         }
-    } catch {
-        ioHook.stop()
-        if(overlaywin != null){
-            overlaywin.webContents.send('overlay::data_enabled_change', [args.TAG_NUMBER, false]);
-        }
-    }
+
+    
 });
 
 ipcMain.on('settings::fullscreen', (event, args) => {
@@ -129,11 +126,8 @@ ipcMain.on('settings::fullscreen', (event, args) => {
         FSInterval = setInterval(() => {
             isWindowFullscreen((error, result) => {
               if (error) {
-                console.error(error);
                 return;
               }
-              //console.log(`Is there any fullscreen window: ${result.isFullscreen}`);
-              //console.log(`Fullscreen Window is on: ${result.monitorInfo}`);
               if(result.isFullscreen){
                 createOverlay(result.monitorInfo)
               } else if (overlaywin != null) {
@@ -159,14 +153,11 @@ ipcMain.on('settings::fullscreen', (event, args) => {
 });
 
 ipcMain.on('autoclicker::save_settings', () => {
-    console.log("Recieved:" + AutoClickersData[0].HOTKEY + " " + AutoClickersData[0].KEY + " " +  AutoClickersData[0].CPS + " " + AutoClickersData[0].TAG_NUMBER 
-        + " " + AutoClickersData[1].HOTKEY + " " + AutoClickersData[1].KEY + " " + + AutoClickersData[1].CPS + " " + AutoClickersData[1].TAG_NUMBER 
-    );
+
 
         const AutoClickerData = JSON.stringify(AutoClickersData);
         fs.writeFileSync(path.join(__dirname, '/settings/settings.json'), AutoClickerData, (error) => {
             if(error){
-                console.log(error);
                 throw error;
             }
         })
@@ -174,20 +165,32 @@ ipcMain.on('autoclicker::save_settings', () => {
 })
 
 ipcMain.on('autoclicker::load_settings', (event) => {
-    console.log("fafdsaasf");
     fs.readFile(path.join(__dirname, '/settings/settings.json'), (error, data) => {
         if (error) {
-          console.error(error);
-      
           throw err;
         }
-      
+        try {
         const userSettings = JSON.parse(data);
 
-        console.log(userSettings);
-
         win.webContents.send('autoclicker::send_settings', userSettings);
+        } catch { return }
       });
+})
+
+ipcMain.on('autoclicker::reset_settings', (event) => {
+    fs.writeFileSync(path.join(__dirname, '/settings/settings.json'), JSON.stringify([{HOTKEY:"undefined",KEY:"undefined",CPS:0,TAG_NUMBER:0,HOTKEY_ID:"undefined",KEY_ID:0},{HOTKEY:"undefined",KEY:"undefined",CPS:0,TAG_NUMBER:1,HOTKEY_ID:undefined,KEY_ID:0}]), (error) => {
+        if(error){
+            throw error;
+        }
+    })
+    AutoClickers = []
+    AutoClickersData = []
+    AutoClickerStarted = [];
+    robotInterval = [null, null];
+    FullScreenEnabled = false;
+    FSInterval = null;
+    win.webContents.send('autoclicker::require_load_settings', AutoClickersData)
+    win.webContents.reload()
 })
 
 function createOverlay(monitorInfo) {
@@ -207,6 +210,7 @@ function createOverlay(monitorInfo) {
             transparent: true,
             alwaysOnTop: true,
             show: false,
+            focusable: false,
             
             webPreferences: {
                 nodeIntegration: true,
@@ -215,27 +219,27 @@ function createOverlay(monitorInfo) {
             }
         })
         overlaywin.setBounds({
-            x: bounds.x, // x position relative to the monitor's top-left corner
-            y: bounds.y, // y position relative to the monitor's top-left corner
+            x: bounds.x, 
+            y: bounds.y, 
             width: 150,
             height: 280
           });
         overlaywin.loadFile(path.join(__dirname, '/overlay/index.html'))
 
-        // Show the window after loading the content
+    
         overlaywin.once('ready-to-show', () => {
             overlaywin.show();
             sendData()
         });
 
-        // Ensure the window stays on top of all other windows
+  
         overlaywin.setAlwaysOnTop(true, 'screen-saver');
 
-        // Optional: Hide the window from taskbar
+
         overlaywin.setSkipTaskbar(true);
         overlaywin.setIgnoreMouseEvents(true);
 
-        // Optional: Set this if you need to maintain click-through mode even when the window is focused
+
         overlaywin.setIgnoreMouseEvents(true, { forward: true });
     }
 }
@@ -272,8 +276,6 @@ function createWindow() {
         }
     });
     win.loadURL('http://localhost:3000');
-
-    
     win.setResizable(false)
     win.setMenuBarVisibility(false)
     win.once("closed", () =>{
@@ -282,31 +284,41 @@ function createWindow() {
         }
         overlaywin == null;
     })
+
+    win.webContents.on('did-finish-load', ()=> {
+        if(fs.existsSync(path.join(__dirname, '/settings/settings.json'))){
+            win.webContents.send('autoclicker::require_load_settings', AutoClickersData)
+        } 
+    })
     
-    //win.setMenuBarVisibility(true) //hide if unecceseary
-    //win.webContents.openDevTools()
-    //win.setResizable(true)
+    win.webContents.on('will-navigate', (event) => {
+        event.preventDefault();
+      });
+    
+      win.webContents.on('before-unload', (event) => {
+        event.preventDefault();
+      });
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') {
             app.quit()
         }
     });
-
 }
 app.whenReady().then(createWindow);
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
     }
-});
+})
+ipcMain.on('autoclicker::exit', (event) => {
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
+})
+
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow()
     }
 });
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-console.log(path.join(__dirname, 'preload.js'))

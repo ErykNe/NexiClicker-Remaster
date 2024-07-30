@@ -15,12 +15,12 @@ interface IValue {
   TAG_NUMBER: any;
 }
 interface JSValue {
-  hotkey: any;
-  hotkey_id: any;
-  key: any;
-  key_id: any;
-  cps_value: number;
-  tag: any;
+  HOTKEY: any;
+  HOTKEY_ID: any;
+  KEY: any;
+  KEY_ID: any;
+  CPS: number;
+  TAG_NUMBER: any;
 }
 
 export default function AutoClickerConfig(TAG: any) {
@@ -33,8 +33,14 @@ export default function AutoClickerConfig(TAG: any) {
   });
   const tagNumId = TAG.TAG.toString();
   useEffect(() => {
-    // Send the updated formValues to the main process
-    var temp = { ...formValues }
+    var temp : JSValue = {
+      HOTKEY: undefined,
+      KEY: undefined,
+      CPS: formValues.CPS,
+      TAG_NUMBER: TAG.TAG,
+      HOTKEY_ID: formValues.HOTKEY,
+      KEY_ID: formValues.KEY
+    }
     let button = document.getElementById("HOTKEY" + tagNumId);
     if(button?.innerHTML != "HOTKEY"){
       temp.HOTKEY = button?.innerHTML
@@ -48,34 +54,49 @@ export default function AutoClickerConfig(TAG: any) {
 
   useEffect(()=>{
     ipcRenderer.on('autoclicker::send_settings', (event:any, args:any) => {
-      console.log("recieved: " + args + " " + args[TAG.TAG].HOTKEY);
-      /*setFormValues(prevValues => ({
+      setFormValues(prevValues => ({
         ...prevValues,
-        HOTKEY: args[TAG.TAG].HOTKEY,
-        KEY: args[TAG.TAG].KEY,
+        HOTKEY: args[TAG.TAG].HOTKEY_ID,
+        KEY: args[TAG.TAG].KEY_ID,
         CPS: args[TAG.TAG].CPS,
-      }));*/
+      }));
       let HotkeyButton = document.getElementById("HOTKEY" + tagNumId);
       if(HotkeyButton){
+        if(args[TAG.TAG].HOTKEY == "undefined" || args[TAG.TAG].HOTKEY == undefined){
+          HotkeyButton.innerHTML = "HOTKEY"
+        } else {
         HotkeyButton.innerHTML = args[TAG.TAG].HOTKEY;
+        }
       }
       let KeyButton = document.getElementById("KEY" + tagNumId);
       if(KeyButton){
         KeyButton.innerHTML = args[TAG.TAG].KEY;
+        if(args[TAG.TAG].KEY == "undefined" || args[TAG.TAG].KEY == undefined){
+          KeyButton.innerHTML = "BIND";
+        } else {
+          KeyButton.innerHTML = args[TAG.TAG].KEY;
+        }
       }
       const slider = document.getElementById("CPS" + tagNumId) as HTMLInputElement;
     if (slider) {
         slider.value = args[TAG.TAG].CPS.toString();
-        slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + args[TAG.TAG].CPS + '%, #fff ' + args[TAG.TAG].CPS + '%, white 100%)'
+        slider.style.background = 'linear-gradient(to right, #007BFF 0%, #007BFF ' + (args[TAG.TAG].CPS / 85) * 100 + '%, #fff ' + (args[TAG.TAG].CPS / 85) * 100 + '%, white 100%)'
 
-        // Optionally, update the display label or other elements
         const label = document.getElementById("CPSLabel" + tagNumId);
         if (label) {
-            label.innerHTML = `${args[TAG.TAG].CPS} CPS`;
+            if(args[TAG.TAG].CPS < 10){
+              label.innerHTML = `⠀⠀${args[TAG.TAG].CPS} CPS⠀`;
+            } else if (args[TAG.TAG].CPS < 100) {
+            label.innerHTML = `⠀${args[TAG.TAG].CPS} CPS⠀`;
+            } else {
+              label.innerHTML = `${args[TAG.TAG].CPS} CPS⠀`;
+            }
         }
     }
     })
   }, [])
+  
+  
 
   const setHotkey = () => {
     window.addEventListener('keydown', handleHotkeyDown);
@@ -133,7 +154,15 @@ export default function AutoClickerConfig(TAG: any) {
 
   const handleSubmit = (values: IValue) => {
     values = formValues; 
-    console.log("Submitted values:", values);
+    if (values.CPS == 0){
+      return;
+    } else if (values.HOTKEY == undefined){
+      return;
+    } else if (values.KEY == undefined) {
+      return;
+    } else if (values.TAG_NUMBER == undefined){
+      return;
+    }
     ipcRenderer.send('submit::autoclicker', values); 
     setAutoClickerActive(true);
   };
@@ -161,7 +190,7 @@ export default function AutoClickerConfig(TAG: any) {
           </div>
           <div className="slider">
             <p className="CPSLabel" id={"CPSLabel" + tagNumId}>⠀⠀0 CPS⠀</p>
-            <input type="range" name="CPS" defaultValue="0" min="0" max="100" step="1" id={"CPS" + tagNumId} onChange={setCPSAmount} />
+            <input type="range" name="CPS" defaultValue="0" min="0" max="85" step="1" id={"CPS" + tagNumId} onChange={setCPSAmount} />
           </div>
         </Form>
       </Formik>

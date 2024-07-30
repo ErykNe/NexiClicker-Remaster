@@ -11,6 +11,6 @@ body {
     z-index: 1;
 }
 @font-face {
-    font-family: Eras; /*a name to be used later*/
-    src: url(../src/resources/font/ErasBoldITC.ttf); /*URL to font*/
+    font-family: Eras; 
+    src: url(../src/resources/font/ErasBoldITC.ttf); 
   }

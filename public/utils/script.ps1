@@ -73,7 +73,6 @@ $callback = {
       $windowInfo.cbSize = [System.Runtime.InteropServices.Marshal]::SizeOf($windowInfo)
       [Win32]::GetWindowInfo($hWnd, [ref]$windowInfo)
 
-      # Check if the window has no borders or title bar
       $hasBorders = ($windowInfo.dwStyle -band 0x00C00000) -ne 0
       $isFullscreenWindow = -not $hasBorders
 
