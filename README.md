@@ -23,13 +23,13 @@ When everything is done, the application will run instantly and you should see t
 
 
 - [Setting up an autoclicker](#setting-up-an-autoclicker)
-- [Running the autoclicker](#run)
-- [Tool bar](#toolbar)
+- [Running the autoclicker](#running-the-autoclicker)
+- [Tool bar](#tool-bar)
 - [Fullscreen Overlay](#fsoverlay)
 
 
 
-## Setting up an autoclicker
+## Setting up an AutoClicker
 
 
 ![](https://github.com/ErykNe/NexiClicker-Remaster/blob/bc1f761aa34d5a74ae998eef36ffaf49739def03/screenshots/Autoclicker-settings.png)
@@ -39,6 +39,24 @@ Here you can adjust the settings of the autoclicker:
 - **BIND** - Click the button with LMB and press the key that you want to bind the autoclicker. When it is pressed, the robot that clicks the hotkey will run.
 - **CPS** - Adjust the value of Clicks Per Second using this slider.
 - **START** - Enable listening for the bind that you've set. After pressing this you will be able to stop the process. This will not work if you did not adjust previous settings.
+
+
+## Running the AutoClicker
+
+![](https://github.com/ErykNe/NexiClicker-Remaster/blob/c3ce8ee84cbb4f4b5c07a6aea212666d4f9bcda6/screenshots/settings.png)
+
+This is an example of correctly set up autoclicker. 
+
+When you click the Start button, the app listens for keyboard and mouse movement to detect whether you've pressed the bind for your clicker. If you press it, the program will start the robot, which will press the hotkey for you at the appropriate interval that you set with the CPS slider. 
+To stop this process, click the bind again, then the program will kill the robot and no longer press the hotkey.
+This works everywhere, regardless of what else you do on your computer. If you click the stop button, the app will stop listening to your keyboard and mouse.
+
+## Tool bar
+
+![](https://github.com/ErykNe/NexiClicker-Remaster/blob/c3ce8ee84cbb4f4b5c07a6aea212666d4f9bcda6/screenshots/toolbar.png)
+
+
+
 
 
 
