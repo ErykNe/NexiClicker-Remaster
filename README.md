@@ -1,7 +1,7 @@
 # NexiClicker Remaster 
 
 NexiClicker Remaster is an app that allows user to automatically click a button on their keyboard or mouse in a specific period of time delay.
-It is currently the best free program of this typ and it significantly exceeds users' expectations.
+It is currently the best free program of this type and it meets every users' expectations.
 Nexi Clicker is intended for users playing computer games, but it's worth mentioning that some of them view Autoclicker as _unfair advantage_. The author does not support cheating in games and promotes the use of this application where it is allowed.
 The author is not responsible for the purpose for which the program is used, the users use it at their own discretion.
 
