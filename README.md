@@ -20,15 +20,15 @@ When everything is done, the application will run instantly and you should see t
 
 ## App usage
 #
-[TOC]
-##Setting up an autoclicker
-##Running the autoclicker
-##Tool bar
-##Fullscreen Overlay
 #
-
-## Setting up an autoclicker
-
+- [Setting up an autoclicker](#setup)
+- [Running the autoclicker](#run)
+- [Tool bar](#toolbar)
+- [Fullscreen Overlay](#fsoverlay)
+#
+#
+## Setting up an autoclicker {#setup}
+#
 ![](https://github.com/ErykNe/NexiClicker-Remaster/blob/bc1f761aa34d5a74ae998eef36ffaf49739def03/screenshots/Autoclicker-settings.png)
 
 Here you can adjust the settings of the autoclicker:
