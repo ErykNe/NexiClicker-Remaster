@@ -7,7 +7,7 @@ The author is not responsible for the purpose for which the program is used, the
 
 ## Installation
 
-It is reccomened (but not neccesseary) to have [NodeJS](https://nodejs.org/en/download/prebuilt-installer) (version 16.x.x or below) installed before.
+It is reccomened to have [NodeJS](https://nodejs.org/en/download/prebuilt-installer) installed before.
 
 Go [here](https://github.com/ErykNe/NexiClicker-Remaster/releases/tag/v0.1.0) and install the NexiClicker.Remaster.Setup.0.1.0.exe file on your computer.
 After launching this, this file will download NexiClicker automatically.
