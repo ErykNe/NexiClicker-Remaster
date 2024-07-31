@@ -74,8 +74,10 @@ Sometimes changing the resolution from fullscreen to windowed fullscreen will so
 
 ![GPL-3.0 license](https://github.com/ErykNe/NexiClicker-Remaster/tree/main?tab=GPL-3.0-1-ov-file)
 
-#
+
 Eryk Ne
+
+
 
 
 
