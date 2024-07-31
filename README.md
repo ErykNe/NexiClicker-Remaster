@@ -19,7 +19,23 @@ When everything is done, the application will run instantly and you should see t
 ![](https://github.com/ErykNe/NexiClicker-Remaster/blob/008197f8bc207368787af074e8575c8b7a43a92d/screenshots/first-launch.png)
 
 ## App usage
+#
+[TOC]
+##Setting up an autoclicker
+##Running the autoclicker
+##Tool bar
+##Fullscreen Overlay
+#
 
+## Setting up an autoclicker
+
+![](https://github.com/ErykNe/NexiClicker-Remaster/blob/bc1f761aa34d5a74ae998eef36ffaf49739def03/screenshots/Autoclicker-settings.png)
+
+Here you can adjust the settings of the autoclicker:
+- [HOTKEY] - Click the button with LMB and press the key that you want to be automatically clicked by a program.
+- [BIND] - Click the button with LMB and press the key that you want to bind the autoclicker. When it is pressed, the robot that clicks the hotkey will run.
+- [CPS] - Adjust the value of Clicks Per Second using this slider.
+- [START] - Enable listening for the bind that you've set. After pressing this you will be able to stop the process. This will not work if you did not adjust previous settings.
 
 
 
