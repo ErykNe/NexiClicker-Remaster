@@ -70,7 +70,9 @@ It's an transparent window that appears on the left corner of your monitor every
 This feature is very limited as some applications do not allow any other processes on top for security reasons. If the overlay does not appear, the application that is on fullscreen mode do not allow this. 
 Sometimes changing the resolution from fullscreen to windowed fullscreen will solve the problem.
 
-#LICENCE
+# LICENCE
+
+![GPL 3.0](https://github.com/ErykNe/NexiClicker-Remaster/tree/main?tab=GPL-3.0-1-ov-file)
 
 
 
