@@ -6,7 +6,7 @@ const { ipcRenderer } = require("electron/main");
 
 const ioHook = require('iohook') 
 const robot = require('@jitsi/robotjs') 
-const { isWindowFullscreen } = require('./utils/fs');
+const { isWindowFullscreen } = require('./fs');
 const fs = require('fs')
 var win = null;
 var overlaywin = null;
@@ -262,21 +262,23 @@ function removeOverlay(){
     overlaywin = null;
 }
 
-
 function createWindow() {
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 790,
+        height: 590,
+        resizable: false,
         title: 'Nexi Clicker Remaster',
         icon: ".//src/resources/icons/favicon.ico",
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js'),
-        }
+        },
+        show: false
     });
     win.loadURL('http://localhost:3000');
-    win.setResizable(false)
+    win.setSize(790, 590);
+    win.setMenu(null);
     win.setMenuBarVisibility(false)
     win.once("closed", () =>{
         if(overlaywin != null){
@@ -284,11 +286,11 @@ function createWindow() {
         }
         overlaywin == null;
     })
-
     win.webContents.on('did-finish-load', ()=> {
         if(fs.existsSync(path.join(__dirname, '/settings/settings.json'))){
             win.webContents.send('autoclicker::require_load_settings', AutoClickersData)
         } 
+        win.show();
     })
     
     win.webContents.on('will-navigate', (event) => {
@@ -303,6 +305,7 @@ function createWindow() {
             app.quit()
         }
     });
+    win.setSize(790, 590);
 }
 app.whenReady().then(createWindow);
 app.on('window-all-closed', () => {
@@ -319,6 +322,7 @@ ipcMain.on('autoclicker::exit', (event) => {
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow()
+        win.setSize(790, 590);
     }
 });
 

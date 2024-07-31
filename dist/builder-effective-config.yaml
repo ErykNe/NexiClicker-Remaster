@@ -1,0 +1,16 @@
+directories:
+  output: dist
+  buildResources: assets
+files:
+  - filter:
+      - build/**/*
+      - ./public/**/*
+extraMetadata:
+  main: build/electron.js
+appId: nexiclicker-remaster
+icon: ./public/favicon.ico
+asar: true
+asarUnpack:
+  - ./public/script.ps1
+extends: react-cra
+electronVersion: 12.0.0

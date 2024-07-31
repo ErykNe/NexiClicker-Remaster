@@ -1,6 +1,6 @@
 @font-face {
     font-family: Eras; 
-    src: url(../../src/resources/font/ErasBoldITC.ttf);
+    src: url(ErasBoldITC.ttf);
 }
 h2, p {
     font-family: Eras;
