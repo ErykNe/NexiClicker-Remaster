@@ -66,8 +66,7 @@ This works everywhere, regardless of what else you do on your computer. If you c
 
 When you press the button below the tool bar, you con watch the settings and status of your autoclickers on the fullscreen app! 
 It's an transparent window that appears on the left corner of your monitor everytime you launch other application on fullscreen mode. It is not focusable and you cannot change the position of it. 
-####NOTE:
-This feature is very limited as some applications do not allow any other processes on top for security reasons. If the overlay does not appear, the application that is on fullscreen mode do not allow this. 
+> NOTE: This feature is very limited as some applications do not allow any other processes on top for security reasons. If the overlay does not appear, the application that is on fullscreen mode do not allow this. 
 Sometimes changing the resolution from fullscreen to windowed fullscreen will solve the problem.
 
 # LICENCE
