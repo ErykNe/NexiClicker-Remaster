@@ -25,7 +25,7 @@ When everything is done, the application will run instantly and you should see t
 - [Setting up an autoclicker](#setting-up-an-autoclicker)
 - [Running the autoclicker](#running-the-autoclicker)
 - [Tool bar](#tool-bar)
-- [Fullscreen Overlay](#fsoverlay)
+- [Fullscreen Overlay](#fullscreen-overlay)
 
 
 
@@ -54,6 +54,27 @@ This works everywhere, regardless of what else you do on your computer. If you c
 ## Tool bar
 
 ![](https://github.com/ErykNe/NexiClicker-Remaster/blob/c3ce8ee84cbb4f4b5c07a6aea212666d4f9bcda6/screenshots/toolbar.png)
+
+- **SAVE** - saves your autoclicker setup. The configuration loads as you launch NexiClicker. 
+- **LOAD** - loads your currently saved setup.
+- **RESET** - resets _both_ saved configuration and current configuration.
+- **EXIT** - exit the app 
+
+## Fullscreen Overlay
+
+![](https://github.com/ErykNe/NexiClicker-Remaster/blob/274ddeaf247d51beed6d1c32cc8c59180ad50916/screenshots/overlay.png)
+
+When you press the button below the tool bar, you con watch the settings and status of your autoclickers on the fullscreen app! 
+It's an transparent window that appears on the left corner of your monitor everytime you launch other application on fullscreen mode. It is not focusable and you cannot change the position of it. 
+####NOTE:
+This feature is very limited as some applications do not allow any other processes on top for security reasons. If the overlay does not appear, the application that is on fullscreen mode do not allow this. 
+Sometimes changing the resolution from fullscreen to windowed fullscreen will solve the problem.
+
+#LICENCE
+
+
+
+
 
 
 
